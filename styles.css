@@ -106,6 +106,16 @@ h1 {
     text-align: center;
 }
 
+#logoContainer {
+    float: left;
+    margin: 0 10px;
+}
+
+#logoContainer img {
+    height: 50px;
+    width: auto;
+}
+
 @font-face {
     font-family: 'Metropolis';
     src: url('metropolis.regular.otf') format('opentype');
