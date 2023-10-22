@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="surv.css">
+    <title>Learning and Mentoring Survey</title>
+</head>
+<body>
+  <header>
+    <h1>Learning and Mentoring Survey</h1>
+  </header>
+    <form action="submit_survey.php" method="post" id="surveyForm" class="questions">
+        <ol>
+            <li>
+                <p>What best describes how you learn most efficiently?</p>
+                <input type="radio" name="q1" value="blue"> a) Visual<br>
+                <input type="radio" name="q1" value="red"> b) Hands-on<br>
+                <input type="radio" name="q1" value="green"> c) Auditory<br>
+            </li>
+            <li>
+                <p>In which setting do you feel most comfortable learning?</p>
+                <input type="radio" name="q2" value="n/a"> a) A quiet room<br>
+                <input type="radio" name="q2" value="n/a"> b) A group study environment<br>
+                <input type="radio" name="q2" value="n/a"> c) Outside<br>
+            </li>
+            <li>
+                <p>Do you prefer to learn at your own pace or follow a structured timeline set by an instructor?</p>
+                <input type="radio" name="q3" value="n/a"> a) Learn at own pace<br>
+                <input type="radio" name="q3" value="n/a"> b) Follow a timeline<br>
+            </li>
+            <li>
+                <p>Do you enjoy working in groups or prefer individual learning?</p>
+                <input type="radio" name="q4" value="red"> a) Groups<br>
+                <input type="radio" name="q4" value="blue green"> b) Individual<br>
+            </li>
+            <li>
+                <p>How do you prefer to receive feedback on your learning progress?</p>
+                <input type="radio" name="q5" value="blue"> a) Written comments<br>
+                <input type="radio" name="q5" value="green"> b) Verbal discussions<br>
+                <input type="radio" name="q5" value="red"> c) Self-assessment<br>
+            </li>
+            <li>
+                <p>How well do you focus in a distracting environment?</p>
+                <input type="radio" name="q6" value="n/a"> a) High tolerance for distractions<br>
+                <input type="radio" name="q6" value="n/a"> b) Average ability to focus with distractions<br>
+                <input type="radio" name="q6" value="n/a"> c) Can't focus with even minimal distractions<br>
+            </li>
+            <li>
+                <p>Do you prefer to reflect on what you've learned or immediately apply the knowledge in practical situations?</p>
+                <input type="radio" name="q7" value="blue green"> a) Reflect<br>
+                <input type="radio" name="q7" value="red"> b) Apply immediately<br>
+            </li>
+            <li>
+                <p>How do you take notes when learning?</p>
+                <input type="radio" name="q8" value="green"> a) Written<br>
+                <input type="radio" name="q8" value="blue"> b) Digital/Typed<br>
+                <input type="radio" name="q8" value="red"> c) No Notes<br>
+            </li>
+            <li>
+                <p>What is your current career stage?</p>
+                <input type="radio" name="q9" value="n/a"> a) Student<br>
+                <input type="radio" name="q9" value="n/a"> b) Entry-level<br>
+                <input type="radio" name="q9" value="n/a"> c) Mid-career<br>
+                <input type="radio" name="q9" value="n/a"> d) Senior-level<br>
+            </li>
+            <li>
+                <p>What is your preferred mentor's gender?</p>
+                <input type="radio" name="q10" value="n/a"> a) Male<br>
+                <input type="radio" name="q10" value="n/a"> b) Female<br>
+                <input type="radio" name="q10" value="n/a"> c) No preference<br>
+            </li>
+            <li>
+                <p>How often would you like to meet with your mentor?</p>
+                <input type="radio" name="q11" value="n/a"> a) Weekly<br>
+                <input type="radio" name="q11" value="n/a"> b) Biweekly<br>
+                <input type="radio" name="q11" value="n/a"> c) Monthly<br>
+                <input type="radio" name="q11" value="n/a"> d) As needed<br>
+            </li>
+            <li>
+                <p>What are your long-term career goals?</p>
+                <input type="radio" name="q12" value="n/a"> a) Career advancement<br>
+                <input type="radio" name="q12" value="n/a"> b) Entrepreneurship<br>
+                <input type="radio" name="q12" value="n/a"> c) Work-life balance<br>
+                <input type="radio" name="q12" value="n/a"> d) Other<br>
+            </li>
+            <li>
+                <p>What is your preferred mentoring format?</p>
+                <input type="radio" name="q13" value="n/a"> a) Structured program<br>
+                <input type="radio" name="q13" value="n/a"> b) Informal mentoring<br>
+                <input type="radio" name="q13" value="n/a"> c) Hybrid approach<br>
+            </li>
+            <li>
+                <p>Are you open to cross-generational mentoring? (i.e., being mentored by someone significantly older or younger than you)</p>
+                <input type="radio" name="q14" value="n/a"> a) Yes<br>
+                <input type="radio" name="q14" value="n/a"> b) No<br>
+                <input type="radio" name="q14" value="n/a"> c) No preference<br>
+            </li>
+            <li>
+                <p>Are you looking for a mentor who can help you with personal development, such as work-life balance or stress management?</p>
+                <input type="radio" name="q15" value="n/a"> a) Yes<br>
+                <input type="radio" name="q15" value="n/a"> b) No<br>
+                <input type="radio" name="q15" value="n/a"> c) No preference<br>
+            </li>
+            <li>
+                <p>How do you prefer to measure the success of your mentoring relationship?</p>
+                <input type="radio" name="q16" value="n/a"> a) Achieving specific career goals<br>
+                <input type="radio" name="q16" value="n/a"> b) Personal growth and development<br>
+                <input type="radio" name="q16" value="n/a"> c) Increased network and connections<br>
+            </li>
+            <li>
+                <p>What specific skills or knowledge are you seeking in a mentor?</p>
+                <input type="radio" name="q17" value="n/a"> a) Technical skills<br>
+                <input type="radio" name="q17" value="n/a"> b) Leadership and management<br>
+                <input type="radio" name="q17" value="n/a"> c) Networking and communication<br>
+                <input type="radio" name="q17" value="n/a"> d) Industry-specific expertise<br>
+            </li>
+            <li>
+                <p>How do you prefer to communicate with your mentor?</p>
+                <input type="radio" name="q18" value="n/a"> a) In-person meetings<br>
+                <input type="radio" name="q18" value="n/a"> b) Video calls<br>
+                <input type="radio" name="q18" value="n/a"> c) Phone calls<br>
+                <input type="radio" name="q18" value="n/a"> d) Email or messaging<br>
+            </li>
+            <li>
+                <p>How do you typically organize your daily tasks and assignments?</p>
+                <input type="radio" name="q19" value="red"> a) Using to-do lists and written schedules.<br>
+                <input type="radio" name="q19" value="green"> b) Discussing priorities and tasks with others.<br>
+                <input type="radio" name="q19" value="blue"> c) Using visual reminders or post-it notes.<br>
+            </li>
+            <li>
+                <p>When solving a problem or making a decision, you tend to:</p>
+                <input type="radio" name="q20" value="blue"> a) Analyze the situation and consider facts and figures.<br>
+                <input type="radio" name="q20" value="green"> b) Discuss it with others and get their opinions.<br>
+                <input type="radio" name="q20" value="red"> c) Use your intuition and go with what "feels right."<br>
+            </li>
+        </ol>
+        <input type="submit" value="Submit">
+    </form>
+
+  <script>
+    document.getElementById('surveyForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the form from submitting
+        // Define your logic to assign the user to a group
+        const answers = {
+            q1: document.querySelector('input[name="q1"]:checked').value,
+            // Add more answers as needed
+        };
+
+        let assignedGroup = '';
+
+        // Define your logic to assign the user to a group based on their answers
+        if (answers.q1 === 'blue') {
+            assignedGroup = 'Visual';
+        } else if (answers.q1 === 'red') {
+            assignedGroup = 'Hands-on';
+        } else {
+            assignedGroup = 'Auditory';
+        }
+
+        // You can now display the assigned group or perform further actions with it
+        alert('You have been assigned to ' + assignedGroup);
+    });
+    </script>
+</body>
+</html>
