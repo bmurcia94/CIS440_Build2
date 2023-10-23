@@ -1,27 +1,26 @@
-/* Ensure everything within the main content is centered */
 .main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Adjust to center vertically */
+    justify-content: center;
     padding-top: 2rem;
     min-height: 80vh;
 }
 
 .button-container {
     display: flex;
-    flex-direction: column; /* Stacks items vertically */
-    align-items: center;    /* Centers them horizontally */
+    flex-direction: column;
+    align-items: center;   
     gap: 1rem;
-    width: 100%;             /* Takes full width of the parent container */
+    width: 100%;           
 }
 
 .inputfield, .typeButton {
     width: 100%;
-    max-width: 300px; /* Or any width you feel comfortable with */
+    max-width: 300px;
 }
 
 header {
-    justify-content: center;  /* Center the items horizontally */
-    align-items: center;      /* Center the items vertically */
+    justify-content: center; 
+    align-items: center;     
 }
