@@ -1,0 +1,27 @@
+/* Ensure everything within the main content is centered */
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Adjust to center vertically */
+    padding-top: 2rem;
+    min-height: 80vh;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column; /* Stacks items vertically */
+    align-items: center;    /* Centers them horizontally */
+    gap: 1rem;
+    width: 100%;             /* Takes full width of the parent container */
+}
+
+.inputfield, .typeButton {
+    width: 100%;
+    max-width: 300px; /* Or any width you feel comfortable with */
+}
+
+header {
+    justify-content: center;  /* Center the items horizontally */
+    align-items: center;      /* Center the items vertically */
+}
