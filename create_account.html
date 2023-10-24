@@ -3,28 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="loginstyles.css">
+    <link rel="stylesheet" href="surv.css">
     <title>Create Account Page</title>
 
     <style>
-        .center {                                       /* Centers the data into the center of the webpage */
+         .center {                                       /* Centers the data into the center of the webpage */
             margin: 			auto;
             display: 			table;           
         }
 
         button {                                        /* Sets the size, color, weight, and margins for the buttons */
-            font-size: 1.5em;
-            background-color: 	#bbbbbb;
+            font-size: 1.5em;	
             margin: 			15px;
             font-weight:        bold;
             width: 100px;
+        } 
+        
+        body    {
+            color: black;
         }
 
     </style>
 </head>
 
 <body>
-
+    <header>
     <h1 class="center">Create Account</h1>
+    </header>
     <br>
     
     <form id="createAccountForm" action="/submit_form" method="POST"> <!-- Form for user to input data -->
@@ -56,8 +63,8 @@
         </table>
         
         <div id="buttonDiv" class="center"> <!-- Container containing buttons-->
-            <button type="button" class="button1" name="clear" onclick="clearForm(this.form)">Clear</button>
-            <button type="submit" class="button2" name="create">Create</button>
+            <button type="button" class="backButton" name="back" onclick="window.location='loginpage.html'">Back</button>
+            <button type="submit" class="backButton" name="create">Create</button>
         </div>
     </form>
 
