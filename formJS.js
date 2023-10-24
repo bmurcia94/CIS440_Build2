@@ -38,17 +38,17 @@ document.addEventListener("DOMContentLoaded", function () {
             // Handle the response here
             if (data.success) {
                 alert("Account created successfully!");
-                window.location.href = 'index.html';
+                window.location.href = 'loginpage.html';
             } else {
                 // alert("An error occurred: " + data.message);
                 // alert("Account created successfully!");
-                window.location.href = 'index.html';
+                window.location.href = 'create_account.html';
             }
         })
         .catch(error => {
             console.error("Error:", error);
-            // alert("An error occurred. Please try again.");
-            window.location.href = 'index.html';
+            alert("An error occurred. Please try again.");
+            window.location.href = 'loginpage.html';
         });
         }
 });
