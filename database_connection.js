@@ -14,7 +14,8 @@ var fileExtensions = {
     ".png":  "text/png",
     ".otf": "text/otf",
     ".avif": "text/avif",
-    ".map": "text/map"
+    ".map": "text/map",
+    ".webp": "text/webp"
 };
 
 //creates database connection variable
