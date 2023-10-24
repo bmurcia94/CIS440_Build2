@@ -14,9 +14,6 @@
         <h1>Log In</h1>
     </header>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="script.js"></script>
-
     <main>
         <div class="button-container">
             <input class="inputfield" type="text" id="username" name="username" placeholder="Username">
@@ -26,10 +23,13 @@
         </div>
         <div class="button-container">
             <button class="typeButton" onclick="userLogin()">Log In</button>
-            <button class="typeButton" onclick="">Sign Up</button>
+            <button class="typeButton" id="btnCreate" onclick="window.location='create_account.html'">Sign Up</button>
         </div>
 
     </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
 
 </body>
 
