@@ -121,3 +121,22 @@ h1 {
     font-weight: normal;
     font-style: normal;
 }
+
+.video-container {
+    margin: 20px auto;
+    width: 80%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 1rem;
+}
+
+.video-container iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+.video-container h2 {
+    font-size: 24px;
+    margin: 20px 0;
+    color: #333; /* Text color for the video introduction */
+}
