@@ -12,6 +12,9 @@ var fileExtensions = {
     ".jpeg": "text/jpeg",
     ".jpg":  "text/jpeg",
     ".png":  "text/png",
+    ".otf": "text/otf",
+    ".avif": "text/avif",
+    ".map": "text/map"
 };
 
 //creates database connection variable
