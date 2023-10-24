@@ -1,74 +1,5 @@
-
-// const connection = require('./database_connection')
-// const app = require('./app')
-
-// var userName;
-// var userPass;
-// var userEmail;
-// var userFirst;
-// var userLast;
-// var userCompany;
-
-// function createAccount() {
-//     alert('createAccount function called');
-
-//     userName    = document.getElementById("userNameID").value;
-//     userPass    = document.getElementById("userPassID").value;
-//     userEmail   = document.getElementById("userEmailID").value;
-//     userFirst   = document.getElementById("userFirstID").value;
-//     userLast    = document.getElementById("userLastID").value; 
-//     userCompany = document.getElementById("userCompanyID").value;
-
-//     connection.connect()
-
-//     app.post('/createAccount', (req, res) => {
-//         const userName = req.body.userName;
-//         const userPass = req.body.userPass;
-//         const userEmail = req.body.userEmail;
-//         const userFirst = req.body.userFirst;
-//         const userLast = req.body.userLast;
-//         const userCompany = req.body.userCompany;
-
-//     const userData = {
-//         userName:    userName,
-//         userPass:    userPass,
-//         userEmail:   userEmail,
-//         firstName:   userFirst,
-//         lastName:    userLast,
-//         userCompany: userCompany,
-//     }
-
-//     const values = [
-//         userData.userName,
-//         userData.userPass,
-//         userData.userEmail,
-//         userData.userFirst,
-//         userData.userLast,
-//         userData.userCompany,
-//     ]
-
-//     const sql = 'INSERT INTO User (userName, userPass, userEmail, userFirst, userLast, userCompany) VALUES (?, ?, ?, ?, ?, ?)';
-
-//     connection.query(sql, values, (err, results) => {
-//         if (err) {
-//           console.error('Error inserting data:', err);
-//           return;
-//         }
-//         console.log('Data inserted successfully');
-
-//         connection.end();
-//       });
-// });
-// }
-
-// function clearForm(form) {
-// 	var formElements = form.elements;
-// 	for (var i=0; i< formElements.length; i++)
-// 		formElements[i].value="";
-// }
-
 document.addEventListener("DOMContentLoaded", function () {
-    const accountForm = document.getElementById("createAccount");
+    const accountForm = document.getElementById("createAccountForm");
 
     accountForm.addEventListener("submit", function (e) {
         e.preventDefault(); // Prevent the default form submission
@@ -89,13 +20,13 @@ document.addEventListener("DOMContentLoaded", function () {
             userLast,
             userCompany
         };
-        console.log(userdata)
+        console.log(userData)
         // Send the data to the server for insertion
       sendDataToServer(userData);
     });
 
     async function sendDataToServer(userData) {
-        fetch("/create_account", {
+        fetch("/submit_form", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -120,5 +51,4 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = 'index.html';
         });
         }
-    
 });
