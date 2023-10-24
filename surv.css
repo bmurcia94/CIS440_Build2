@@ -63,3 +63,8 @@ input[type=submit]:hover {
     font-weight: normal;
     font-style: normal;
 }
+
+header {
+    justify-content: center; 
+    align-items: center;     
+}
