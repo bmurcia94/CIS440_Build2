@@ -1,0 +1,15 @@
+{
+  "name": "cis440_build2",
+  "version": "1.0.0",
+  "description": "Buddies for Scrummies",
+  "main": "database_connection.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "BM",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2"
+  }
+}
