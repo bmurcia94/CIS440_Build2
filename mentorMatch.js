@@ -1,18 +1,4 @@
-function findRandomMentorForMentee(mentee, mentors) {
-    // Filter mentors who match the mentee's colorType
-    const matchingMentors = mentors.filter(mentor => mentor.colorType === mentee.colorType);
-
-    // If no matching mentors, return a message
-    if (matchingMentors.length === 0) {
-        return "No suitable mentor found.";
-    }
-
-    // Select a random mentor from the matching mentors
-    const randomIndex = Math.floor(Math.random() * matchingMentors.length);
-    return matchingMentors[randomIndex];
-}
-
-// Example usage:
+// Example data. This will be deleted when this is linked to a database
 const mentee = { id: 'mentee1', colorType: 'blue' };
 const mentors = [
     { id: 'mentor1', colorType: 'red' },
@@ -21,5 +7,35 @@ const mentors = [
     { id: 'mentor4', colorType: 'blue' }
 ];
 
-const randomMatch = findRandomMentorForMentee(mentee, mentors);
-console.log(randomMatch);
+document.addEventListener("DOMContentLoaded", function() {
+    const findMentorButton = document.getElementById("findMentorButton");
+
+    findMentorButton.addEventListener("click", function() {
+        const match = findRandomMentorForMentee(mentee, mentors);
+        displayMatchResult(match);
+    });
+});
+
+function findRandomMentorForMentee(mentee, mentors) {
+    const matchingMentors = mentors.filter(mentor => mentor.colorType === mentee.colorType);
+
+    if (matchingMentors.length === 0) {
+        return "No suitable mentor found.";
+    }
+
+    const randomIndex = Math.floor(Math.random() * matchingMentors.length);
+    return matchingMentors[randomIndex];
+}
+
+function displayMatchResult(match) {
+    const resultDisplay = document.getElementById("mentorMatchResult"); 
+    
+    resultDisplay.style.color = "black";
+
+    if (typeof match === 'string') {
+        resultDisplay.textContent = match;
+    } else {
+        resultDisplay.textContent = `Matched Mentor: ${match.id} with colorType: ${match.colorType}`;
+    }
+}
+

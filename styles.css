@@ -150,3 +150,10 @@ img {
   color: #2c2c2c;
 }
 
+#mentorMatchResult {
+    font-size: 24px; 
+    color: black;
+    margin: 20px;
+    padding: 10px;
+    text-align: center;
+}

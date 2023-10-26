@@ -1,4 +1,3 @@
-// Assuming userTable contains a 'userType' field with values 'Mentee' or 'Mentor'
 
 document.getElementById('btnLogin').addEventListener('click', function () {
     userLogin();
