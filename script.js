@@ -8,8 +8,6 @@ document.getElementById('btnLogout').addEventListener('click', function () {
     logoutButton.style.display = 'none';
 
     sessionStorage.clear();
-    
-    window.location.href = 'loginpage.html'; 
 });
 
 function userLogin() {
