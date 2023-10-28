@@ -3,12 +3,12 @@ document.getElementById('btnLogin').addEventListener('click', function () {
     window.location.href = 'loginpage.html';
 });
 
-document.getElementById('btnLogout').addEventListener('click', function () {
+/* document.getElementById('btnLogout').addEventListener('click', function () {
     var logoutButton = document.getElementById('btnLogout');
     logoutButton.style.display = 'none';
 
     sessionStorage.clear();
-});
+}); */
 
 function userLogin() {
     var userName = document.getElementById('username').value;
