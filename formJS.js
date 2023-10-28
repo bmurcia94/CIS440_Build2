@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // const accountForm = document.getElementById("createAccountForm");
-    const accountForm = document.getElementById("inputForm");
+    const accountForm = document.getElementById("createAccountForm");
 
     accountForm.addEventListener("submit", function (e) {
         e.preventDefault(); // Prevent the default form submission
