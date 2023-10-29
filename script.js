@@ -27,8 +27,8 @@ function userLogin() {
             sessionStorage.setItem("isLoggedIn", true);
             alert("Login successful!");
 
-            var loginButton = document.getElementById('btnLogin');
-            loginButton.style.display = 'none';
+            /* var loginButton = document.getElementById('btnLogin');
+            loginButton.style.display = 'none'; */
 
             // Check the userType and redirect accordingly
             if (checkUser.userType === 'Mentee') {
