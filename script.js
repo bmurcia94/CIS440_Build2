@@ -2,29 +2,6 @@ document.getElementById('btnLogin').addEventListener('click', function () {
     window.location.href = 'loginpage.html';
 });
 
-function checkLoginState() {
-    var isLoggedIn = sessionStorage.getItem("isLoggedIn");
-
-    if (isLoggedIn) {
-        var loginButton = document.getElementById('btnLogin');
-        if (loginButton) {
-            loginButton.style.display = 'none';
-        }
-    }
-}
-function checkLogoutState() {
-    var isLoggedIn = sessionStorage.getItem("isLoggedIn");
-
-    if (!isLoggedIn) {
-        var logoutButton = document.getElementById('btnLogout');
-        if (logoutButton) {
-            logoutButton.style.display = 'none';
-        }
-    }
-}
-window.addEventListener('load', checkLoginState);
-window.addEventListener('load', checkLogoutState);
-
 function userLogin() {
     var userName = document.getElementById('username').value;
     var userPass = document.getElementById('password').value;
@@ -54,4 +31,27 @@ function userLogin() {
         }
     });
 }
+
+function checkLoginState() {
+    var isLoggedIn = sessionStorage.getItem("isLoggedIn");
+
+    if (isLoggedIn) {
+        var loginButton = document.getElementById('btnLogin');
+        if (loginButton) {
+            loginButton.style.display = 'none';
+        }
+    }
+}
+function checkLogoutState() {
+    var isLoggedIn = sessionStorage.getItem("isLoggedIn");
+
+    if (!isLoggedIn) {
+        var logoutButton = document.getElementById('btnLogout');
+        if (logoutButton) {
+            logoutButton.style.display = 'none';
+        }
+    }
+}
+window.addEventListener('load', checkLoginState);
+window.addEventListener('load', checkLogoutState);
 
