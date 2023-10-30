@@ -3,6 +3,7 @@ document.getElementById('btnLogin').addEventListener('click', function () {
 });
 
 function userLogin() {
+    console.log("User login function called");
     var userName = document.getElementById('username').value;
     var userPass = document.getElementById('password').value;
     var user;
