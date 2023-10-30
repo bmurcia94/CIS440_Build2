@@ -1,8 +1,10 @@
-document.getElementById('btnLogin').addEventListener('click', function () {
+/* document.getElementById('btnLogin').addEventListener('click', function () {
     window.location.href = 'loginpage.html';
-});
+}); */
+
 
 function userLogin() {
+    console.log("User login function called");
     var userName = document.getElementById('username').value;
     var userPass = document.getElementById('password').value;
     var user;
@@ -20,18 +22,23 @@ function userLogin() {
 
             // Check the userType and redirect accordingly
             if (checkUser.userType === 'Mentee') {
+                console.log("Redirecting to Mentee.html");
                 window.location.href = 'Mentee.html';
             } else if (checkUser.userType === 'Mentor') {
+                console.log("Redirecting to Mentor.html");
                 window.location.href = 'Mentor.html';
             } else {
+                console.log("Did not work");
                 alert("Unknown user type. Please contact support.");
             }
         } else {
+            console.log("Did not work");
             alert("Your credentials did not match. Try again");
         }
     });
 }
 
+/*
 function checkLoginState() {
     var isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
@@ -54,4 +61,5 @@ function checkLogoutState() {
 }
 window.addEventListener('load', checkLoginState);
 window.addEventListener('load', checkLogoutState);
+*/
 

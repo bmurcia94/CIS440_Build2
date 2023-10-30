@@ -24,6 +24,9 @@
         body    {
             color: black;
         }
+        #userTypeID   {
+            width: 165px;
+        }
 
     </style>
 </head>
@@ -59,7 +62,16 @@
             <tr>
                 <td><label for="userCompanyID">Company: </label></td>
                 <td><input type="text" id="userCompanyID" placeholder="Company" required></td>
-            </tr>                                   
+            </tr>
+            <tr>
+                <td><label for="userTypeID">Type: </label></td>
+                <td>
+                    <select id="userTypeID" name="userType" required>
+                        <option value="Mentor">Mentor</option>
+                        <option value="Mentee">Mentee</option>
+                    </select>
+            </tr>
+                                               
         </table>
         
         <div id="buttonDiv" class="center"> <!-- Container containing buttons-->

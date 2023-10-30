@@ -88,11 +88,11 @@ var server = http.createServer(function (request, response) {  //creates web ser
 
         request.on('end', () => {
             const formData = JSON.parse(data); // Assuming the data is sent as JSON
-            const { userName, userPass, userEmail, userFirst, userLast, userCompany } = formData;
+            const { userName, userPass, userEmail, userFirst, userLast, userCompany, userType } = formData;
 
             // Insert data into the "User" table in the MySQL database
-            const myQuery = 'INSERT INTO User (userName, userPass, userEmail, userFirst, userLast, userCompany) VALUES (?, ?, ?, ?, ?, ?)';
-            con.query(myQuery, [userName, userPass, userEmail, userFirst, userLast, userCompany], (err, result) => {
+            const myQuery = 'INSERT INTO User (userName, userPass, userEmail, userFirst, userLast, userCompany, userType) VALUES (?, ?, ?, ?, ?, ?, ?)';
+            con.query(myQuery, [userName, userPass, userEmail, userFirst, userLast, userCompany, userType], (err, result) => {
                 if (err) {
                     console.error('Error inserting data:', err);
                     response.writeHead(500, { 'Content-Type': 'application/json' });
