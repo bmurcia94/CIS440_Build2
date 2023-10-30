@@ -1,6 +1,6 @@
-document.getElementById('btnLogin').addEventListener('click', function () {
+/* document.getElementById('btnLogin').addEventListener('click', function () {
     window.location.href = 'loginpage.html';
-}); 
+}); */
 
 
 function userLogin() {
