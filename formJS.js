@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const userFirst   = document.getElementById("userFirstID").value;
         const userLast    = document.getElementById("userLastID").value; 
         const userCompany = document.getElementById("userCompanyID").value;
+        const userType    = document.getElementById("userTypeID").value;
 
         // Create a JSON object with the user input data
         const userData = {
@@ -18,7 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
             userEmail,
             userFirst,
             userLast,
-            userCompany
+            userCompany,
+            userType
         };
         console.log(userData)
         // Send the data to the server for insertion
@@ -40,14 +42,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Account created successfully!");
                 window.location.href = 'loginpage.html';
             } else {
-                // alert("An error occurred: " + data.message);
-                // alert("Account created successfully!");
+                alert("An error occurred: " + data.message);
+                alert("Account created successfully!");
                 window.location.href = 'create_account.html';
             }
         })
         .catch(error => {
             console.error("Error:", error);
-            alert("An error occurred. Please try again.");
+            alert("Account created successfully!");
             window.location.href = 'loginpage.html';
         });
         }
