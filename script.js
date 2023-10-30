@@ -11,10 +11,12 @@ function userLogin() {
 
     $.get("?tableName=User", function (userTable) {
         user = JSON.parse(userTable);
+        console.log("Fetched user data:", user);
 
         var checkUser = user.find(function (user) {
             return user.userName === userName && user.userPass === userPass;
         });
+        console.log("Matching user:", checkUser);
 
         if (checkUser) {
             sessionStorage.setItem("isLoggedIn", true);
