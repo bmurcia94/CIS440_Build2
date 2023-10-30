@@ -20,13 +20,17 @@ function userLogin() {
 
             // Check the userType and redirect accordingly
             if (checkUser.userType === 'Mentee') {
+                console.log("Redirecting to Mentee.html");
                 window.location.href = 'Mentee.html';
             } else if (checkUser.userType === 'Mentor') {
+                console.log("Redirecting to Mentor.html");
                 window.location.href = 'Mentor.html';
             } else {
+                console.log("Did not work");
                 alert("Unknown user type. Please contact support.");
             }
         } else {
+            console.log("Did not work");
             alert("Your credentials did not match. Try again");
         }
     });
