@@ -2,8 +2,6 @@
     window.location.href = 'loginpage.html';
 }); */
 
-document.getElementById('btnLogin').addEventListener('click', userLogin);
-
 
 function userLogin() {
     console.log("User login function called");
