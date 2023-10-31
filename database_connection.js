@@ -117,9 +117,19 @@ var server = http.createServer(function (request, response) {  //creates web ser
                 response.end(JSON.stringify(result));
             }
         });
-    } else {
-        // Handle other routes and static file serving
-        // ...
+    } else if (table === 'Mentor') {
+           // Handle GET request for retrieving User data
+           var myQuery = 'SELECT u.userFirst, u.userLast FROM User AS u JOIN Mentee AS m ON u.userID = m.userID WHERE mentorID = 1';
+           con.query(myQuery, function (err, result, fields) {
+               if (err) {
+                   console.error('Error fetching data:', err);
+                   response.writeHead(500, { 'Content-Type': 'application/json' });
+                   response.end(JSON.stringify({ success: false, message: 'An error occurred' }));
+               } else {
+                   response.writeHead(200, { 'Content-Type': 'application/json' });
+                   response.end(JSON.stringify(result));
+               }
+           });
 }}); // end var server = http.createServer
 
 
