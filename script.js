@@ -72,5 +72,5 @@ function menteeList()       {
         const hr = document.createElement('hr');
         document.body.appendChild(hr);
     });
-
+}
 
