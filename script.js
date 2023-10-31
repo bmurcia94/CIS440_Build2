@@ -40,7 +40,7 @@ function userLogin() {
     });
 }
 
-/*
+
 function checkLoginState() {
     var isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
@@ -63,5 +63,14 @@ function checkLogoutState() {
 }
 window.addEventListener('load', checkLoginState);
 window.addEventListener('load', checkLogoutState);
-*/
+
+
+function menteeList()       {
+    const addHrButton = document.getElementById('hrButton');
+
+    addHrButton.addEventListener('click', () => {
+        const hr = document.createElement('hr');
+        document.body.appendChild(hr);
+    });
+
 
