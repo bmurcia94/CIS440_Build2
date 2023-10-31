@@ -150,6 +150,10 @@ img {
   color: #2c2c2c;
 }
 
+#mentortitle {
+    color: #2c2c2c;
+  }
+
 th, td {
     width: 20%;
     padding: 5%;
