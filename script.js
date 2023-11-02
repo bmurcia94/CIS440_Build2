@@ -55,7 +55,7 @@ function userLogin() {
         }
     });
 }
-/*
+
 function checkLoginState() {
     var isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
@@ -78,5 +78,5 @@ function checkLogoutState() {
 }
 window.addEventListener('load', checkLoginState);
 window.addEventListener('load', checkLogoutState);
-*/
+
 
