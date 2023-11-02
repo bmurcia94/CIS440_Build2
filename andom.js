@@ -2,9 +2,9 @@ var menteeData = JSON.parse(sessionStorage.getItem("menteeData"));
 var menteeColorType = menteeData.colorType;
 
 document.addEventListener("DOMContentLoaded", function() {
-    const findMentorButton = document.getElementById("findMentorButton");
+    const random = document.getElementById("random");
 
-    findMentorButton.addEventListener("click", function() {
+    random.addEventListener("click", function() {
         fetchMentorData().then(mentors => {
             const matches = findMentorsForMentee(menteeColorType, mentors, 10);
             displayMatchResults(matches);
