@@ -10,6 +10,7 @@ console.log(menteeColorType)
 // ];
 
 document.addEventListener("DOMContentLoaded", function() {
+        for (let i = 0; i < 10; i++) {
     const findMentorButton = document.getElementById("findMentorButton");
 
     findMentorButton.addEventListener("click", function() {
@@ -21,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
             displayMatchResult("Error fetching mentor data.");
         });
     });
+        }
 });
 
 function fetchMentorData() {
