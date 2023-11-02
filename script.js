@@ -66,6 +66,13 @@ function checkLoginState() {
         }
     }
 }
+
+function userLogout() {
+    sessionStorage.removeItem("isLoggedIn");
+    sessionStorage.removeItem("menteeData");
+    window.location.href = 'index.html'; 
+}
+
 function checkLogoutState() {
     var isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
@@ -76,6 +83,8 @@ function checkLogoutState() {
         }
     }
 }
+document.getElementById('btnLogout').addEventListener('click', userLogout);
+
 window.addEventListener('load', checkLoginState);
 window.addEventListener('load', checkLogoutState);
 
