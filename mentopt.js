@@ -1,4 +1,3 @@
-listmentee
 var menteeData = JSON.parse(sessionStorage.getItem("menteeData"));
 var menteeColorType = menteeData.colorType;
 console.log(menteeColorType)
