@@ -10,14 +10,15 @@ console.log(menteeColorType)
 // ];
 
 document.addEventListener("DOMContentLoaded", function() {
-    const listmentee = document.getElementById("listmentee");
+    const findMentorButton = document.getElementById("findMentorButton");
 
-    listmentee.addEventListener("click", function() {
+    findMentorButton.addEventListener("click", function() {
         fetchMentorData().then(mentors => {
-            displayMatchResults(mentors);
+            const match = findRandomMentorForMentee(menteeColorType, mentors);
+            displayMatchResult(match);
         }).catch(error => {
             console.error('Error fetching mentor data:', error);
-            displayMatchResults(["Error fetching mentor data."]);
+            displayMatchResult("Error fetching mentor data.");
         });
     });
 });
@@ -29,19 +30,26 @@ function fetchMentorData() {
         .catch(error => console.error('Error fetching mentor data:', error));
 }
 
-function displayMatchResults(mentors) {
-    const resultDisplay = document.getElementById("mentorMatchResult");
+function findRandomMentorForMentee(menteeColorType, mentors) {
+    const matchingMentors = mentors.filter(mentor => mentor.colorType === menteeColorType);
 
-    resultDisplay.style.color = "black";
-    resultDisplay.innerHTML = ''; // Clear the previous content
-
-    if (mentors.length === 0) {
-        resultDisplay.textContent = "No suitable mentors found.";
-    } else {
-        resultDisplay.innerHTML = "Matched Mentors:<br>";
-        mentors.forEach(mentor => {
-            resultDisplay.innerHTML += `<div>Username: ${mentor.userName} (${mentor.userEmail}) with colorType: ${mentor.colorType}</div>`;
-        });
+    if (matchingMentors.length === 0) {
+        return "No suitable mentor found.";
     }
+
+    const randomIndex = Math.floor(Math.random() * matchingMentors.length);
+    return matchingMentors[randomIndex];
 }
 
+
+function displayMatchResult(match) {
+    const resultDisplay = document.getElementById("mentorMatchResult"); 
+    
+    resultDisplay.style.color = "black";
+
+    if (typeof match === 'string') {
+        resultDisplay.textContent = match;
+    } else {
+        resultDisplay.textContent = `Matched Mentor: ${match.userName} (${match.userEmail}) with colorType: ${match.colorType}`;
+    }
+}
