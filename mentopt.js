@@ -14,56 +14,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     listmentee.addEventListener("click", function() {
         fetchMentorData().then(mentors => {
-            const match = findRandomMentorForMentee(menteeColorType, mentors);
-            displayMatchResult(match);
-        }).catch(error => {
-            console.error('Error fetching mentor data:', error);
-            displayMatchResult("Error fetching mentor data.");
-        });
-    });
-});
-
-function fetchMentorData() {
-    return fetch('/getMentorDetails')
-        .then(response => response.json())
-        .then(data => data)
-        .catch(error => console.error('Error fetching mentor data:', error));
-}
-
-function findRandomMentorForMentee(menteeColorType, mentors) {
-    const matchingMentors = mentors.filter(mentor => mentor.colorType === menteeColorType);
-
-    if (matchingMentors.length === 0) {
-        return "No suitable mentor found.";
-    }
-
-    const randomIndex = Math.floor(Math.random() * matchingMentors.length);
-    return matchingMentors[randomIndex];
-}
-
-
-function displayMatchResult(match) {
-    const resultDisplay = document.getElementById("mentorMatchResult"); 
-    
-    resultDisplay.style.color = "black";
-
-    if (typeof match === 'string') {
-        resultDisplay.textContent = match;
-    } else {
-        resultDisplay.textContent = `Matched Mentor: ${match.userName} (${match.userEmail}) with colorType: ${match.colorType}`;
-    }
-}
-
-
-
-
-
-
-document.addEventListener("DOMContentLoaded", function() {
-    const listmentee = document.getElementById("listmentee");
-
-    listmentee.addEventListener("click", function() {
-        fetchMentorData().then(mentors => {
             displayMatchResults(mentors);
         }).catch(error => {
             console.error('Error fetching mentor data:', error);
