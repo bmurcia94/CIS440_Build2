@@ -1,7 +1,14 @@
 /* document.getElementById('btnLogin').addEventListener('click', function () {
     window.location.href = 'loginpage.html';
 }); */
-
+function fetchMenteeData(userName) {
+    return fetch(`/getMenteeData?userName=${encodeURIComponent(userName)}`)
+        .then(response => response.json())
+        .then(data => {
+            return data[0]; // Assuming the query returns a single row
+        })
+        .catch(error => console.error('Error fetching mentee data:', error));
+}
 
 function userLogin() {
     console.log("User login function called");
@@ -10,9 +17,14 @@ function userLogin() {
     var user;
 
     $.get("?tableName=User", function (userTable) {
-        user = JSON.parse(userTable);
-        console.log("Fetched user data:", user);
+        console.log("Raw user table data:", userTable); // Add this line to log the raw response
 
+        // Try to parse only if it's a string
+        if (typeof userTable === 'string') {
+            user = JSON.parse(userTable);
+        } else {
+            user = userTable; // If it's already an object, use it directly
+        }
         var checkUser = user.find(function (user) {
             return user.userName === userName && user.userPass === userPass;
         });
@@ -24,8 +36,12 @@ function userLogin() {
 
             // Check the userType and redirect accordingly
             if (checkUser.userType === 'Mentee') {
-                console.log("Redirecting to Mentee.html");
-                window.location.href = 'Mentee.html';
+                fetchMenteeData(userName).then(menteeData => {
+                    // Store mentee data in sessionStorage or handle it as needed
+                    sessionStorage.setItem("menteeData", JSON.stringify(menteeData));
+                    console.log("Redirecting to Mentee.html");
+                    window.location.href = 'Mentee.html';
+                });
             } else if (checkUser.userType === 'Mentor') {
                 console.log("Redirecting to Mentor.html");
                 window.location.href = 'Mentor.html';
@@ -39,8 +55,7 @@ function userLogin() {
         }
     });
 }
-
-
+/*
 function checkLoginState() {
     var isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
@@ -63,14 +78,5 @@ function checkLogoutState() {
 }
 window.addEventListener('load', checkLoginState);
 window.addEventListener('load', checkLogoutState);
-
-
-function menteeList()       {
-    const addHrButton = document.getElementById('hrButton');
-
-    addHrButton.addEventListener('click', () => {
-        const hr = document.createElement('hr');
-        document.body.appendChild(hr);
-    });
-}
+*/
 
