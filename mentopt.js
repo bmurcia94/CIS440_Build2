@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const findMentorButton = document.getElementById("findMentorButton");
+    const findMentorButton = document.getElementById("listmentee");
 
     findMentorButton.addEventListener("click", function() {
         fetchMentorData().then(mentors => {
