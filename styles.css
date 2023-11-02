@@ -158,10 +158,12 @@ th, td {
     width: 20%;
     padding: 5%;
     height: 100px;
-    border: 1px solid black;
-    border-radius: 10px;
     color: black;
+    border-bottom: 1px solid #000;
+    border-left: none;
+    border-right: none;
   }
+
 #mentorMatchResult {
     font-size: 24px; 
     color: black;
