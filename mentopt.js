@@ -19,7 +19,7 @@ function fetchMentorData() {
 }
 
 function displayMatchResults(mentors) {
-    const resultDisplay = document.getElementById("mentorMatchResult");
+    const resultDisplay = document.getElementById("showMatchResult");
 
     resultDisplay.style.color = "black";
     resultDisplay.innerHTML = ''; // Clear the previous content
