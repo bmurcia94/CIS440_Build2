@@ -10,7 +10,7 @@ console.log(menteeColorType)
 // ];
 
 document.addEventListener("DOMContentLoaded", function() {
-    const listmentee = document.getElementById("listmentee");
+    const findMentorButton = document.getElementById("listmentee");
 
     listmentee.addEventListener("click", function() {
         fetchMentorData().then(mentors => {
