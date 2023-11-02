@@ -1,23 +1,37 @@
+var menteeData = JSON.parse(sessionStorage.getItem("menteeData"));
+var menteeColorType = menteeData.colorType;
+console.log(menteeColorType)
 // Example data. This will be deleted when this is linked to a database
-const mentee = { id: 'mentee1', colorType: 'blue' };
-const mentors = [
-    { id: 'mentor1', colorType: 'red' },
-    { id: 'mentor2', colorType: 'blue' },
-    { id: 'mentor3', colorType: 'green' },
-    { id: 'mentor4', colorType: 'blue' }
-];
+// const mentors = [
+//     { id: 'mentor1', colorType: 'red' },
+//     { id: 'mentor2', colorType: 'blue' },
+//     { id: 'mentor3', colorType: 'green' },
+//     { id: 'mentor4', colorType: 'blue' }
+// ];
 
 document.addEventListener("DOMContentLoaded", function() {
     const findMentorButton = document.getElementById("findMentorButton");
 
     findMentorButton.addEventListener("click", function() {
-        const match = findRandomMentorForMentee(mentee, mentors);
-        displayMatchResult(match);
+        fetchMentorData().then(mentors => {
+            const match = findRandomMentorForMentee(menteeColorType, mentors);
+            displayMatchResult(match);
+        }).catch(error => {
+            console.error('Error fetching mentor data:', error);
+            displayMatchResult("Error fetching mentor data.");
+        });
     });
 });
 
-function findRandomMentorForMentee(mentee, mentors) {
-    const matchingMentors = mentors.filter(mentor => mentor.colorType === mentee.colorType);
+function fetchMentorData() {
+    return fetch('/getMentorDetails')
+        .then(response => response.json())
+        .then(data => data)
+        .catch(error => console.error('Error fetching mentor data:', error));
+}
+
+function findRandomMentorForMentee(menteeColorType, mentors) {
+    const matchingMentors = mentors.filter(mentor => mentor.colorType === menteeColorType);
 
     if (matchingMentors.length === 0) {
         return "No suitable mentor found.";
@@ -27,6 +41,7 @@ function findRandomMentorForMentee(mentee, mentors) {
     return matchingMentors[randomIndex];
 }
 
+
 function displayMatchResult(match) {
     const resultDisplay = document.getElementById("mentorMatchResult"); 
     
@@ -35,7 +50,6 @@ function displayMatchResult(match) {
     if (typeof match === 'string') {
         resultDisplay.textContent = match;
     } else {
-        resultDisplay.textContent = `Matched Mentor: ${match.id} with colorType: ${match.colorType}`;
+        resultDisplay.textContent = `Matched Mentor: ${match.userName} (${match.userEmail}) with colorType: ${match.colorType}`;
     }
 }
-
