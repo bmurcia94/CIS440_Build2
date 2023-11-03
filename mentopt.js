@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const findMentorButton = document.getElementById("listmentee");
+    
 
     findMentorButton.addEventListener("click", function() {
         fetchMentorData().then(mentors => {
@@ -20,6 +21,7 @@ function fetchMentorData() {
 
 function displayMatchResults(mentors) {
     const resultDisplay = document.getElementById("showlist");
+    var mentorlist = [];
 
     resultDisplay.style.color = "black";
     resultDisplay.innerHTML = ''; // Clear the previous content
@@ -30,6 +32,8 @@ function displayMatchResults(mentors) {
         resultDisplay.innerHTML = "Matched Mentors:<br>";
         mentors.forEach(mentor => {
             resultDisplay.innerHTML += `<div>Username: ${mentor.userName} (${mentor.userEmail}) with colorType: ${mentor.colorType}</div>`;
+            mentorlist.push({ "Name": mentor.userName, "Email": mentor.userEmail});
         });
+        console.log(mentorlist);
     }
 }
