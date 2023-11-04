@@ -47,6 +47,24 @@ var server = http.createServer(function (request, response) {
         return; // Prevent further processing
     }
 
+    else if (pathname === '/getMenteeList' && request.method === 'GET') {
+        const queryObject = url.parse(request.url, true).query;
+        const userName = queryObject.userName;
+
+        var myQuery = 'SELECT u.userFirst, u.userLast, u.userEmail FROM Mentee AS m JOIN User AS u ON m.userID = u.userID WHERE m.mentorID = 7';
+        con.query(myQuery, [userName], function (err, result, fields) {
+            if (err) {
+                console.error('Error fetching mentee data:', err);
+                response.writeHead(500, { 'Content-Type': 'application/json' });
+                response.end(JSON.stringify({ success: false, message: 'An error occurred' }));
+            } else {
+                response.writeHead(200, { 'Content-Type': 'application/json' });
+                response.end(JSON.stringify(result));
+            }
+        });
+        return;
+    }
+
     // Handle API endpoints
     if (request.url.startsWith('/getMenteeData') && request.method === 'GET') {
         const queryObject = url.parse(request.url, true).query;
