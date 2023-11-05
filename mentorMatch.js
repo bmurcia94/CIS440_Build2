@@ -1,13 +1,6 @@
 var menteeData = JSON.parse(sessionStorage.getItem("menteeData"));
 var menteeColorType = menteeData.colorType;
 console.log(menteeColorType)
-// Example data. This will be deleted when this is linked to a database
-// const mentors = [
-//     { id: 'mentor1', colorType: 'red' },
-//     { id: 'mentor2', colorType: 'blue' },
-//     { id: 'mentor3', colorType: 'green' },
-//     { id: 'mentor4', colorType: 'blue' }
-// ];
 
 document.addEventListener("DOMContentLoaded", function() {
     const findMentorButton = document.getElementById("findMentorButton");
@@ -23,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-function fetchMentorData() {
+async function fetchMentorData() {
     return fetch('/getMentorDetails')
         .then(response => response.json())
         .then(data => data)
@@ -46,10 +39,11 @@ function displayMatchResult(match) {
     const resultDisplay = document.getElementById("mentorMatchResult"); 
     
     resultDisplay.style.color = "black";
+    resultDisplay.style.display = "block";
 
     if (typeof match === 'string') {
-        resultDisplay.textContent = match;
+        resultDisplay.innerHTML = match;
     } else {
-        resultDisplay.textContent = `Matched Mentor: ${match.userName} (${match.userEmail}) with colorType: ${match.colorType}`;
+        resultDisplay.innerHTML = `Your mentor is <strong>${match.userName}</strong><br>Their email address is <a href="mailto:${match.userEmail}">${match.userEmail}</a>`;
     }
 }
