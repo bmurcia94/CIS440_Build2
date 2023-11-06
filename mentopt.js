@@ -1,3 +1,24 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const findMentorButton = document.getElementById("listmentee");
+    
+
+    findMentorButton.addEventListener("click", function() {
+        fetchMentorData().then(mentors => {
+            displayMatchResults(mentors);
+        }).catch(error => {
+            console.error('Error fetching mentor data:', error);
+            displayMatchResults(["Error fetching mentor data."]);
+        });
+    });
+});
+
+function fetchMentorData() {
+    return fetch('/getMentorDetails')
+        .then(response => response.json())
+        .then(data => data)
+        .catch(error => console.error('Error fetching mentor data:', error));
+}
+
 function displayMatchResults(mentors) {
     const resultDisplay = document.getElementById("showlist");
     var mentorlist = [];
@@ -10,21 +31,9 @@ function displayMatchResults(mentors) {
     } else {
         resultDisplay.innerHTML = "Matched Mentors:<br>";
         mentors.forEach(mentor => {
-            // Create a container div for each mentor
-            const mentorContainer = document.createElement("div");
-            mentorContainer.classList.add("mentor-container");
-
-            // Display the mentor's information
-            mentorContainer.innerHTML = `
-                <div>Username: ${mentor.userName} (${mentor.userEmail})</div>
-                <button class="select-button">Select</button>
-                <hr>
-            `;
-
-            // Append the container to the resultDisplay
-            resultDisplay.appendChild(mentorContainer);
-
-            mentorlist.push({ "Name": mentor.userName, "Email": mentor.userEmail });
+            resultDisplay.innerHTML += `<div>Username: ${mentor.userName} (${mentor.userEmail}) with colorType: ${mentor.colorType}</div>`;
+            mentorlist.push({ "Name": mentor.userName, "Email": mentor.userEmail});
         });
+        console.log(mentorlist);
     }
 }
