@@ -44,49 +44,30 @@
   </main>
 
   <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const findMentorButton = document.getElementById("listmentee");
-    
+    // Simulated JSON data (will replace with SQL data)
+    var jsonData = [
+        { "Name": "Patricia Watson"},
+        { "Name": "Ben Birdland"},
+        { "Name": "Parasoul Renoir"},
+        { "Name": "Marie Korbel"}
+    ];
 
-    findMentorButton.addEventListener("click", function() {
-        fetchMentorData().then(mentors => {
-            displayMatchResults(mentors);
-        }).catch(error => {
-            console.error('Error fetching mentor data:', error);
-            displayMatchResults(["Error fetching mentor data."]);
-        });
+    // Reference to the table body
+    var tableBody = document.querySelector("#data-table tbody");
+
+    // Loop through the JSON data and populate the table
+    jsonData.forEach(function (row) {
+        var newRow = tableBody.insertRow(tableBody.rows.length);
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+
+        cell1.innerHTML = row.Name;
+        cell2.innerHTML = '<button class="typeButton">select</button>';
     });
-});
-
-function fetchMentorData() {
-    return fetch('/getMentorDetails')
-        .then(response => response.json())
-        .then(data => data)
-        .catch(error => console.error('Error fetching mentor data:', error));
-}
-
-function displayMatchResults(mentors) {
-    const resultDisplay = document.getElementById("showlist");
-    var mentorlist = [];
-
-    resultDisplay.style.color = "black";
-    resultDisplay.innerHTML = ''; // Clear the previous content
-
-    if (mentors.length === 0) {
-        resultDisplay.textContent = "No suitable mentors found.";
-    } else {
-        resultDisplay.innerHTML = "Matched Mentors:<br>";
-        mentors.forEach(mentor => {
-            resultDisplay.innerHTML += `<div>Username: ${mentor.userName} (${mentor.userEmail}) with colorType: ${mentor.colorType}</div>`;
-            mentorlist.push({ "Name": mentor.userName, "Email": mentor.userEmail});
-        });
-        console.log(mentorlist);
-    }
-}
   </script>
     <script src="script.js">
     </script>
-
+      <script src="mentopt.js"></script>
 
     
 </body>
