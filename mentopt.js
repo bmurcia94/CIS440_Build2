@@ -31,8 +31,12 @@ function displayMatchResults(mentors) {
     } else {
         resultDisplay.innerHTML = "Matched Mentors:<br>";
         mentors.forEach(mentor => {
-            resultDisplay.innerHTML += `<div>Username: ${mentor.userName} (${mentor.userEmail}) with colorType: ${mentor.colorType}</div>`;
-            mentorlist.push({ "Name": mentor.userName, "Email": mentor.userEmail});
+            resultDisplay.innerHTML += `
+                <div>Name: ${mentor.userName}</div>
+                <div>Email: ${mentor.userEmail}</div>
+                <button class="typeButton">Select Mentor</button>
+            `;
+            mentorlist.push({ "Name": mentor.userName, "Email": mentor.userEmail });
         });
         console.log(mentorlist);
     }
