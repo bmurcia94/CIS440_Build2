@@ -31,8 +31,20 @@ function displayMatchResults(mentors) {
     } else {
         resultDisplay.innerHTML = "Matched Mentors:<br>";
         mentors.forEach(mentor => {
-            resultDisplay.innerHTML += `<div>Username: ${mentor.userName} (${mentor.userEmail}) with colorType: ${mentor.colorType}</div>`;
-            mentorlist.push({ "Name": mentor.userName, "Email": mentor.userEmail});
+          
+          var newRow = tableBody.insertRow(tableBody.rows.length);
+          var cell1 = newRow.insertCell(0);
+          var cell2 = newRow.insertCell(1);
+
+          cell1.innerHTML = mentor.userName;
+          cell2.innerHTML = '<button class="typeButton">select</button>';
+          
+            //resultDisplay.innerHTML += `<div>Username: ${mentor.userName} (${mentor.userEmail})</div>`;
+            //mentorlist.push({ "Name": mentor.userName, "Email": mentor.userEmail});
         });
         console.log(mentorlist);
+
+
+      
     }
+}
