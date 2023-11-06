@@ -43,31 +43,6 @@
 
   </main>
 
-  <script>
-    // Simulated JSON data (will replace with SQL data)
-    var jsonData = [
-        { "Name": "Patricia Watson"},
-        { "Name": "Ben Birdland"},
-        { "Name": "Parasoul Renoir"},
-        { "Name": "Marie Korbel"}
-    ];
-
-    // Reference to the table body
-    var tableBody = document.querySelector("#data-table tbody");
-
-    // Loop through the JSON data and populate the table
-    jsonData.forEach(function (row) {
-        var newRow = tableBody.insertRow(tableBody.rows.length);
-        var cell1 = newRow.insertCell(0);
-        var cell2 = newRow.insertCell(1);
-
-        cell1.innerHTML = row.Name;
-        cell2.innerHTML = '<button class="typeButton">select</button>';
-    });
-  </script>
-    <script src="script.js">
-    </script>
-      <script src="mentopt.js"></script>
 
     
 </body>
