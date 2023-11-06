@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const findMentorButton = document.getElementById("data-table");
+    const findMentorButton = document.getElementById("listmentee");
     
 
     findMentorButton.addEventListener("click", function() {
@@ -31,7 +31,7 @@ function displayMatchResults(mentors) {
     } else {
         resultDisplay.innerHTML = "Matched Mentors:<br>";
         mentors.forEach(mentor => {
-            resultDisplay.innerHTML += `<div>Username: ${mentor.userName} (${mentor.userEmail}) <button class="typeButton">select</button>` ;
+            resultDisplay.innerHTML += `<div>Username: ${mentor.userName} (${mentor.userEmail}) with colorType: ${mentor.colorType}</div>`;
             mentorlist.push({ "Name": mentor.userName, "Email": mentor.userEmail});
         });
         console.log(mentorlist);
