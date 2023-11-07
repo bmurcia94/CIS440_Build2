@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap" rel="stylesheet">
+
+    <style>
+        .center {                                       /* Centers the data into the center of the webpage */
+           margin: 			auto;
+           display: 			table;           
+       }
+
+       button {                                        /* Sets the size, color, weight, and margins for the buttons */
+           font-size: 1.5em;	
+           margin: 			15px;
+           font-weight:        bold;
+           width: 100px;
+       } 
+       
+       body    {
+           color: black;
+       }
+       #userTypeID   {
+           width: 165px;
+       }
+       textarea {
+        overflow: auto;
+       }
+
+   </style>
+
+    <title>Buddies For Scrummies</title>
+</head>
+
+<body>
+    <header>
+        <div id="loginButton">
+            <button class="loginButton" id="btnLogin" onclick="window.location='loginpage.html'">Log In</button>
+            <button class="loginButton" id="btnLogout">Log out</button>
+        </div>
+        <div id ="logoContainer">
+            <img src="img.webp" alt="Buddies For Scrummies Logo">
+        </div>
+        <div id="titleContainer">
+            <h1>Buddies For Scrummies</h1>
+        </div>
+    </header>
+ 
+        <form id="ratingForm" action="/rating_form" method="POST"> <!-- Form for user to input data -->
+            <table id="inputTable" class="center"> <!-- Table containing the number fields and data -->
+                <tr>
+                    <td><label for="userNameID">Username: </label></td>
+                    <td><input type="text" id="userNameID" placeholder="Username" required></td>
+                </tr>
+                <tr>
+                    <td><label for="ratingID">Rating (Out of 5): </label></td>
+                    <td><input type="number" min="0" max="5" step="0.1" id="ratingID" placeholder="Rating" required></td>
+                </tr>    
+                <tr>
+                    <td><label for="commentID">Comments: </label></td>
+                    <td><textarea id="comment" name="comment" id="commentID" placeholder="Enter comments here..." rows="5" cols="20"></textarea>
+                </tr>                                                   
+            </table>
+
+            <div id="buttonDiv" class="center"> <!-- Container containing buttons-->
+                <button type="button" class="backButton" name="back" onclick="window.location='Mentee.html'">Back</button>
+                <button type="submit" class="backButton" name="submit">Submit</button>
+            </div>
+        </form>
+    <script src="script.js"></script> 
+</body>
+
+</html>
