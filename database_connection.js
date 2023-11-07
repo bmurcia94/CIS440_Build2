@@ -15,7 +15,8 @@ var fileExtensions = {
     ".otf":  "font/otf",
     ".avif": "image/avif",
     ".map":  "application/json",
-    ".webp": "image/webp"
+    ".webp": "image/webp",
+    ".ico":  "image/ico"
 };
 
 // Creates database connection variable
@@ -51,7 +52,7 @@ var server = http.createServer(function (request, response) {
         const queryObject = url.parse(request.url, true).query;
         const userName = queryObject.userName;
 
-        var myQuery = 'SELECT u.userFirst, u.userLast, u.userEmail FROM Mentee AS m JOIN User AS u ON m.userID = u.userID WHERE m.mentorID = 7';
+        var myQuery = 'SELECT u.userFirst, u.userLast, u.userEmail FROM Mentee AS m JOIN User AS u ON m.userID = u.userID WHERE m.mentorID = 3';
         con.query(myQuery, [userName], function (err, result, fields) {
             if (err) {
                 console.error('Error fetching mentee data:', err);
@@ -80,6 +81,33 @@ var server = http.createServer(function (request, response) {
                 response.writeHead(200, { 'Content-Type': 'application/json' });
                 response.end(JSON.stringify(result));
             }
+        });
+        return;
+    }
+
+    else if (request.method === 'POST' && request.url === '/rating_form') {
+        let data = '';
+
+        request.on('data', (chunk) => {
+            data += chunk;
+        });
+
+        request.on('end', () => {
+            const formData = JSON.parse(data);
+            const { userName, userRating} = formData;
+
+            const myQuery = 'UPDATE Mentor m JOIN User u ON m.userID = u.userID SET m.mentorRating = ?, m.ratingCount = 1 WHERE u.userName = ?';
+            con.query(myQuery, [userRating, userName], (err, result) => {
+                if (err) {
+                    console.error('Error inserting data:', err);
+                    response.writeHead(500, { 'Content-Type': 'application/json' });
+                    response.end(JSON.stringify({ success: false, message: 'An error occurred' }));
+                } else {
+                    console.log('Data inserted successfully');
+                    response.writeHead(200, { 'Content-Type': 'application/json' });
+                    response.end(JSON.stringify({ success: true, message: 'Data inserted successfully' }));
+                }
+            });
         });
         return;
     }
