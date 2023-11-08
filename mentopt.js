@@ -1,12 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
     const findMentorButton = document.getElementById("listmentee");
-    const jsonData = [
-            { "Name": "Patricia Watson"},
-            { "Name": "Ben Birdland"},
-            { "Name": "Parasoul Renoir"},
-            { "Name": "Marie Korbel"}
-        ];
-
 
     fetchMentorData().then(mentors => {
         displayMatchResults(mentors);
