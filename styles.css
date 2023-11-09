@@ -112,7 +112,8 @@ h1 {
 }
 
 #titleContainerQ {
-    Text-align: center;
+    text-align: center;
+    text-color: black;
 }
 
 #logoContainer {
