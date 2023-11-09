@@ -66,6 +66,40 @@ var server = http.createServer(function (request, response) {
         return;
     }
 
+    else if (pathname === '/addMentorToMentee' && request.method === 'POST') {
+        let requestData = '';
+        request.on('data', (chunk) => {
+            requestData += chunk;
+        });
+    
+        request.on('end', () => {
+            const requestDataObject = JSON.parse(requestData);
+    
+            if (!requestDataObject.menteeID || !requestDataObject.mentorID) {
+                response.writeHead(400, { 'Content-Type': 'application/json' });
+                response.end(JSON.stringify({ success: false, message: 'MenteeID and MentorID are required' }));
+            } else {
+                const query = `
+                    UPDATE Mentee 
+                    SET mentorID = ?
+                    WHERE menteeID = ?
+                `;
+                const values = [requestDataObject.mentorID, requestDataObject.menteeID];
+    
+                con.query(query, values, function (err, result) {
+                    if (err) {
+                        console.error('Error adding mentor to mentee:', err);
+                        response.writeHead(500, { 'Content-Type': 'application/json' });
+                        response.end(JSON.stringify({ success: false, message: 'An error occurred' }));
+                    } else {
+                        response.writeHead(201, { 'Content-Type': 'application/json' });
+                        response.end(JSON.stringify({ success: true, message: 'Mentor added to mentee' }));
+                    }
+                });
+            }
+        });
+        return;
+    }
     // Handle API endpoints
     if (request.url.startsWith('/getMenteeData') && request.method === 'GET') {
         const queryObject = url.parse(request.url, true).query;
@@ -145,6 +179,19 @@ var server = http.createServer(function (request, response) {
 
     if (table === "User") {
         var myQuery = 'SELECT * FROM User';
+        con.query(myQuery, function (err, result, fields) {
+            if (err) {
+                console.error('Error fetching data:', err);
+                response.writeHead(500, { 'Content-Type': 'application/json' });
+                response.end(JSON.stringify({ success: false, message: 'An error occurred' }));
+            } else {
+                response.writeHead(200, { 'Content-Type': 'application/json' });
+                response.end(JSON.stringify(result));
+            }
+        });
+        return;
+    } else if (table === "Mentee") {
+        var myQuery = 'SELECT * FROM Mentee';
         con.query(myQuery, function (err, result, fields) {
             if (err) {
                 console.error('Error fetching data:', err);

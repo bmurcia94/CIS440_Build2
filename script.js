@@ -17,8 +17,13 @@ function userLogin() {
     var user;
 
     $.get("?tableName=User", function (userTable) {
-        console.log("Raw user table data:", userTable); // Add this line to log the raw response
-
+        console.log("Raw user table data:", JSON.stringify(userTable)); // Add this line to log the raw response
+        $.get("?tableName=Mentee", (menteeTable)=> {
+            console.log("Mentee data:", JSON.stringify(menteeTable));
+            menteeTable.forEach((m)=>{
+                // if m.
+            })
+        })
         // Try to parse only if it's a string
         if (typeof userTable === 'string') {
             user = JSON.parse(userTable);
@@ -28,7 +33,7 @@ function userLogin() {
         var checkUser = user.find(function (user) {
             return user.userName === userName && user.userPass === userPass;
         });
-        console.log("Matching user:", checkUser);
+        console.log("Matching user:", JSON.stringify(checkUser));
 
         if (checkUser) {
             sessionStorage.setItem("isLoggedIn", true);

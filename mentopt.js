@@ -35,14 +35,39 @@ function displayMatchResults(mentors) {
             const buttonCell = row.insertCell(2);
 
             cell1.textContent = mentor.userName;
-            cell2.textContent = mentor.userEmail;
+            cell2.textContent = mentor.userID;
 
             const selectButton = document.createElement("button");
             selectButton.className = "typeButton";
             selectButton.textContent = "Select Mentor";
-            buttonCell.appendChild(selectButton);
-        });
 
+            //mentor.mentorID
+
+            selectButton.addEventListener("click", function() {
+                const selectedID = mentor.mentorID; 
+                fetch('/addMentorToMentee', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        userName: selectedID,
+                        menteeID: ""
+                    }),
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Handle a successful response, such as showing a success message.
+                        console.log('Mentor selected and added to the database.');
+                    } else {
+                        // Handle errors, if any.
+                        console.error('Failed to add the mentor to the database.');
+                    }
+                });
+            });
+            buttonCell.appendChild(selectButton);
+
+        });
         resultDisplay.appendChild(table);
     }
 }
