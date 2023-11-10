@@ -41,8 +41,8 @@ function displayMatchResults(mentors) {
             selectButton.className = "typeButton";
             selectButton.textContent = "Select Mentor";
 
-            //mentor.mentorID
-
+            
+            console.log("menteeID: ", JSON.parse(sessionStorage.getItem("menteeData")).menteeID)
             selectButton.addEventListener("click", function() {
                 const selectedID = mentor.mentorID; 
                 fetch('/addMentorToMentee', {
@@ -51,8 +51,8 @@ function displayMatchResults(mentors) {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ 
-                        userName: selectedID,
-                        menteeID: ""
+                        mentorID: selectedID,
+                        menteeID: JSON.parse(sessionStorage.getItem("menteeData")).menteeID
                     }),
                 })
                 .then(response => {

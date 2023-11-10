@@ -79,7 +79,8 @@ var server = http.createServer(function (request, response) {
                 response.writeHead(400, { 'Content-Type': 'application/json' });
                 response.end(JSON.stringify({ success: false, message: 'MenteeID and MentorID are required' }));
             } else {
-                const query = `
+               (() => {
+                 const query = `
                     UPDATE Mentee 
                     SET mentorID = ?
                     WHERE menteeID = ?
@@ -96,6 +97,27 @@ var server = http.createServer(function (request, response) {
                         response.end(JSON.stringify({ success: true, message: 'Mentor added to mentee' }));
                     }
                 });
+               })();
+               return;
+               (() => {
+                 const query = `
+                    UPDATE Requests 
+                    SET mentorID = ?
+                    WHERE menteeID = ?
+                    `;
+                    const values = [requestDataObject.mentorID, requestDataObject.menteeID];
+        
+                    con.query(query, values, function (err, result) {
+                        if (err) {
+                            console.error('Error adding mentor to mentee:', err);
+                            response.writeHead(500, { 'Content-Type': 'application/json' });
+                            response.end(JSON.stringify({ success: false, message: 'An error occurred' }));
+                        } else {
+                            response.writeHead(201, { 'Content-Type': 'application/json' });
+                            response.end(JSON.stringify({ success: true, message: 'Mentor added to mentee' }));
+                        }
+                    });
+               })();
             }
         });
         return;
@@ -105,7 +127,7 @@ var server = http.createServer(function (request, response) {
         const queryObject = url.parse(request.url, true).query;
         const userName = queryObject.userName;
 
-        var myQuery = 'SELECT m.colorType FROM Mentee m INNER JOIN User u ON m.userID = u.userID WHERE u.userName = ?';
+        var myQuery = 'SELECT m.colorType, m.menteeID FROM Mentee m INNER JOIN User u ON m.userID = u.userID WHERE u.userName = ?';
         con.query(myQuery, [userName], function (err, result, fields) {
             if (err) {
                 console.error('Error fetching mentee data:', err);
@@ -114,6 +136,7 @@ var server = http.createServer(function (request, response) {
             } else {
                 response.writeHead(200, { 'Content-Type': 'application/json' });
                 response.end(JSON.stringify(result));
+                console.log(JSON.stringify(result));
             }
         });
         return;
@@ -176,7 +199,7 @@ var server = http.createServer(function (request, response) {
     var base = "http://" + request.headers.host;
     var completeurl = new URL(request.url, base);
     var table = completeurl.searchParams.get("tableName");
-
+    console.log(table)
     if (table === "User") {
         var myQuery = 'SELECT * FROM User';
         con.query(myQuery, function (err, result, fields) {

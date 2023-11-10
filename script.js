@@ -18,12 +18,7 @@ function userLogin() {
 
     $.get("?tableName=User", function (userTable) {
         console.log("Raw user table data:", JSON.stringify(userTable)); // Add this line to log the raw response
-        $.get("?tableName=Mentee", (menteeTable)=> {
-            console.log("Mentee data:", JSON.stringify(menteeTable));
-            menteeTable.forEach((m)=>{
-                // if m.
-            })
-        })
+        
         // Try to parse only if it's a string
         if (typeof userTable === 'string') {
             user = JSON.parse(userTable);
@@ -36,17 +31,20 @@ function userLogin() {
         console.log("Matching user:", JSON.stringify(checkUser));
 
         if (checkUser) {
+            console.log('a')
             sessionStorage.setItem("isLoggedIn", true);
             alert("Login successful!");
 
             // Check the userType and redirect accordingly
             if (checkUser.userType === 'Mentee') {
+                console.log('b')
                 fetchMenteeData(userName).then(menteeData => {
                     // Store mentee data in sessionStorage or handle it as needed
                     sessionStorage.setItem("menteeData", JSON.stringify(menteeData));
                     console.log("Redirecting to Mentee.html");
                     window.location.href = 'Mentee.html';
                 });
+                console.log('c')
             } else if (checkUser.userType === 'Mentor') {
                 console.log("Redirecting to Mentor.html");
                 window.location.href = 'Mentor.html';
