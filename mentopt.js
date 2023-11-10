@@ -39,9 +39,9 @@ function displayMatchResults(mentors) {
 
             const selectButton = document.createElement("button");
             selectButton.className = "typeButton";
-            selectButton.textContent = "Select Mentor";
+            selectButton.textContent = "Request Mentor";
 
-            
+
             console.log("menteeID: ", JSON.parse(sessionStorage.getItem("menteeData")).menteeID)
             selectButton.addEventListener("click", function() {
                 const selectedID = mentor.mentorID; 

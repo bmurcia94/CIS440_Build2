@@ -19,15 +19,32 @@ var fileExtensions = {
     ".ico":  "image/ico"
 };
 
-// Creates database connection variable
-var con = mysql.createConnection({
+const connection_data = {
     host: "107.180.1.16",
     port: "3306",
     user: "fall2023team1",
     password: "fall2023team1",
     database: "fall2023team1"
-});
+};
+
+// Creates database connection variable
+var con = mysql.createConnection(connection_data);
 con.connect(); // Launches connection
+
+function setConnectionError() {
+    //on error, reconnect
+    con.on('error', function(err) {
+        if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+            con = mysql.createConnection(connection_data);
+            con.connect(); // Launches connection
+            setConnectionError(); // Re-sets connection error handling
+        } else {                                      // connnection idle timeout (the wait_timeout
+            throw err;                                  // server variable configures this)
+        }
+    });
+}
+
+setConnectionError();
 
 var server = http.createServer(function (request, response) {
     var pathname = url.parse(request.url).pathname;
@@ -80,49 +97,114 @@ var server = http.createServer(function (request, response) {
                 response.end(JSON.stringify({ success: false, message: 'MenteeID and MentorID are required' }));
             } else {
                (() => {
-                 const query = `
-                    UPDATE Mentee 
-                    SET mentorID = ?
-                    WHERE menteeID = ?
-                `;
-                const values = [requestDataObject.mentorID, requestDataObject.menteeID];
-    
-                con.query(query, values, function (err, result) {
-                    if (err) {
-                        console.error('Error adding mentor to mentee:', err);
-                        response.writeHead(500, { 'Content-Type': 'application/json' });
-                        response.end(JSON.stringify({ success: false, message: 'An error occurred' }));
-                    } else {
-                        response.writeHead(201, { 'Content-Type': 'application/json' });
-                        response.end(JSON.stringify({ success: true, message: 'Mentor added to mentee' }));
-                    }
-                });
-               })();
-               return;
-               (() => {
-                 const query = `
-                    UPDATE Requests 
-                    SET mentorID = ?
-                    WHERE menteeID = ?
+                    const query = `
+                    INSERT INTO Requests (requesteeMenteeID, mentorRequested)
+                    VALUES (${requestDataObject.menteeID}, ${requestDataObject.mentorID})
+                    ON DUPLICATE KEY UPDATE
+                    mentorRequested = VALUES(mentorRequested);
                     `;
-                    const values = [requestDataObject.mentorID, requestDataObject.menteeID];
-        
+                    const values = [requestDataObject.menteeID, requestDataObject.mentorID];
+
                     con.query(query, values, function (err, result) {
                         if (err) {
-                            console.error('Error adding mentor to mentee:', err);
+                            console.error('Error adding request to table:', err);
                             response.writeHead(500, { 'Content-Type': 'application/json' });
                             response.end(JSON.stringify({ success: false, message: 'An error occurred' }));
                         } else {
                             response.writeHead(201, { 'Content-Type': 'application/json' });
-                            response.end(JSON.stringify({ success: true, message: 'Mentor added to mentee' }));
+                            response.end(JSON.stringify({ success: true, message: 'request successfully' }));
                         }
                     });
-               })();
+                })();
             }
         });
         return;
     }
     // Handle API endpoints
+    if (request.url.startsWith('/getRequests')) {
+        const id = request.url.split('?id=')[1]
+        if (!id) {
+            response.writeHead(400, { 'Content-Type': 'text/html' });
+            response.end(JSON.stringify({ success: false, message: 'no id request'}));
+            return;
+        }
+        const query = `SELECT * FROM Requests WHERE mentorRequested = ${id};`
+        con.query(query, (error, result)=>{
+            if (error){
+                response.writeHead(500, { 'Content-Type': 'application/json' });
+                response.end(JSON.stringify({ success: false, message: 'An error occurred' }));
+                return;
+            }
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.end(JSON.stringify(result));
+        })
+        return;
+    }
+    
+    if(request.url.startsWith('/acceptRequest')){
+        //delete the request and then change the mentor number on the mentee to the mentor id
+        //client: fetch(`/${accept ? "acceptMentee" : "rejectMentee"}?menteeID=${menteeID}&mentorID=${c}`)
+        const queryObject = url.parse(request.url, true).query;
+        const menteeID = queryObject.menteeID;
+        const mentorID = queryObject.mentorID;
+        if (!menteeID || !mentorID) {
+            response.writeHead(400, { 'Content-Type': 'text/html' });
+            response.end(JSON.stringify({ success: false, message: 'no id request'}));
+            return;
+        }
+        
+        const query = `DELETE FROM Requests WHERE requesteeMenteeID = ${menteeID} AND mentorRequested = ${mentorID};`
+        
+        con.query(query, (error, result)=>{
+            if (error){
+                response.writeHead(500, { 'Content-Type': 'application/json' });
+                response.end(JSON.stringify({ success: false, message: 'An error occurred' }));
+                return;
+            }
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.end(JSON.stringify(result));
+        });
+        
+        const query2 = `UPDATE Mentee SET mentorID = ${mentorID} WHERE menteeID = ${menteeID};`
+        con.query(query2, (error, result)=>{
+            if (error){
+                response.writeHead(500, { 'Content-Type': 'application/json' });
+                response.end(JSON.stringify({ success: false, message: 'An error occurred' }));
+                return;
+            }
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.end(JSON.stringify(result));
+        });
+        
+        return;
+    } else if(request.url.startsWith('/rejectRequest')){
+        //just delete the request
+        const queryObject = url.parse(request.url, true).query;
+        const menteeID = queryObject.menteeID;
+        const mentorID = queryObject.mentorID;
+        
+        if (!menteeID || !mentorID) {
+            response.writeHead(400, { 'Content-Type': 'text/html' });
+            response.end(JSON.stringify({ success: false, message: 'no id request'}));
+            return;
+        }
+        
+        const query = `DELETE FROM Requests WHERE requesteeMenteeID = ${menteeID} AND mentorRequested = ${mentorID};`
+        
+        con.query(query, (error, result)=>{
+            if (error){
+                response.writeHead(500, { 'Content-Type': 'application/json' });
+                response.end(JSON.stringify({ success: false, message: 'An error occurred' }));
+                return;
+            }
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.end(JSON.stringify(result));
+        });
+        
+        return;
+    }
+    
+
     if (request.url.startsWith('/getMenteeData') && request.method === 'GET') {
         const queryObject = url.parse(request.url, true).query;
         const userName = queryObject.userName;
@@ -171,11 +253,11 @@ var server = http.createServer(function (request, response) {
 
     if (request.method === 'POST' && request.url === '/submit_form') {
         let data = '';
-
+        
         request.on('data', (chunk) => {
             data += chunk;
         });
-
+        
         request.on('end', () => {
             const formData = JSON.parse(data);
             const { userName, userPass, userEmail, userFirst, userLast, userCompany, userType } = formData;
@@ -195,6 +277,7 @@ var server = http.createServer(function (request, response) {
         });
         return;
     }
+    
 
     var base = "http://" + request.headers.host;
     var completeurl = new URL(request.url, base);
@@ -215,6 +298,19 @@ var server = http.createServer(function (request, response) {
         return;
     } else if (table === "Mentee") {
         var myQuery = 'SELECT * FROM Mentee';
+        con.query(myQuery, function (err, result, fields) {
+            if (err) {
+                console.error('Error fetching data:', err);
+                response.writeHead(500, { 'Content-Type': 'application/json' });
+                response.end(JSON.stringify({ success: false, message: 'An error occurred' }));
+            } else {
+                response.writeHead(200, { 'Content-Type': 'application/json' });
+                response.end(JSON.stringify(result));
+            }
+        });
+        return;
+    } else if (table === "Mentor") {
+        var myQuery = 'SELECT * FROM Mentor';
         con.query(myQuery, function (err, result, fields) {
             if (err) {
                 console.error('Error fetching data:', err);

@@ -39,8 +39,8 @@
 
     </table>
     <span>
-        <button class="typeButton">accept</button>
-        <button class="typeButton">reject</button>
+        <button class="typeButton" onclick="actionOnChecked(true)">accept</button>
+        <button class="typeButton" onclick="actionOnChecked(false)">reject</button>
         <button class="typeButton" id="myMentees">My Mentee</button>
         <button class = "typeButton" onclick="window.location='Questions.html'">Questions</button>
         <div id="displayMentees" style="padding-top: 20px;"></div>
@@ -48,25 +48,135 @@
   </main>
 
   <script>
-    // Simulated JSON data (will replace with SQL data)
-    var jsonData = [
-        { "Name": "John Doe"},
-        { "Name": "Jane Doe"},
-        { "Name": "Bob Schmidt"}
-    ];
+    
+    let idFromMenteeName;
+    
+    (async ()=>{
+      // $.get("?tableName=User", function (userTable) {
+      //   console.log("Raw user table data:", JSON.stringify(userTable));
+      // });
+      
+      //get the raw table (not using jquery)
+      const rawTableUser = await (await fetch("/getRawTable?tableName=User")).json();
+      const rawTableMentor = await (await fetch("/getRawTable?tableName=Mentor")).json();
+      
+      rawTableMentor.forEach((n) => {
+        console.log(n.userID, sessionStorage.getItem("currentUserID"));
+        if(n.userID == sessionStorage.getItem("currentUserID")){
+          console.log("found mentor");
+          sessionStorage.setItem("mentorID", n.mentorID);
+          console.log("mentorID: " + n.mentorID);
+        }
+      })
+      
+      const c = sessionStorage.getItem("mentorID");
+      
+      const mentorRequests = await fetch(`/getRequests?id=${c}`);
+      const jsonData = await mentorRequests.json();
+      
+      //append a new value to the json data for each thing in the array so that it contains the name equal to the ok basically
+      //just get the id of the mentee and then get the name from the user table
+      
+      const rawMentee = await (await fetch("/getRawTable?tableName=Mentee")).json();
+      
+      console.log("rawMentee: " + JSON.stringify(rawMentee));
+      //Raw mentor table data: [{"mentorID":1,"userID":1,"colorType":"blue","mentorRating":5,"ratingCount":2},{"mentorID":2,"userID":3,"colorType":"green","mentorRating":null,"ratingCount":null},{"mentorID":3,"userID":5,"colorType":"red","mentorRating":5,"ratingCount":1},{"mentorID":4,"userID":7,"colorType":"red","mentorRating":null,"ratingCount":null},{"mentorID":5,"userID":9,"colorType":"blue","mentorRating":null,"ratingCount":null},{"mentorID":6,"userID":11,"colorType":"green","mentorRating":null,"ratingCount":null},{"mentorID":7,"userID":13,"colorType":"red","mentorRating":null,"ratingCount":null},{"mentorID":8,"userID":15,"colorType":"blue","mentorRating":null,"ratingCount":null},{"mentorID":9,"userID":17,"colorType":"green","mentorRating":null,"ratingCount":null},{"mentorID":10,"userID":19,"colorType":"red","mentorRating":null,"ratingCount":null}]
+      //Raw json data: [{"requesteeMenteeID":1,"mentorRequested":1},{"requesteeMenteeID":2,"mentorRequested":1}] Mentor.html:93:15
+      //raw user data: [{"userID":1,"userName":"john_doe","userPass":"password123","userEmail":"johndoe@example.com","userFirst":"John","userLast":"Doe","userCompany":"CompanyA","userType":"Mentor"},{"userID":2,"userName":"jane_smith","userPass":"securepass","userEmail":"janesmith@example.com","userFirst":"Jane","userLast":"Smith","userCompany":"CompanyB","userType":"Mentee"},{"userID":3,"userName":"alice_johnson","userPass":"mypassword","userEmail":"alice@example.com","userFirst":"Alice","userLast":"Johnson","userCompany":"CompanyC","userType":"Mentor"},{"userID":4,"userName":"bob_williams","userPass":"secret123","userEmail":"bob@example.com","userFirst":"Bob","userLast":"Williams","userCompany":"CompanyD","userType":"Mentee"},{"userID":5,"userName":"susan_brown","userPass":"letmein","userEmail":"susan@example.com","userFirst":"Susan","userLast":"Brown","userCompany":"CompanyE","userType":"Mentor"},{"userID":6,"userName":"charlie_davis","userPass":"p@ssw0rd","userEmail":"charlie@example.com","userFirst":"Charlie","userLast":"Davis","userCompany":"CompanyA","userType":"Mentee"},{"userID":7,"userName":"emily_martin","userPass":"qwerty","userEmail":"emily@example.com","userFirst":"Emily","userLast":"Martin","userCompany":"CompanyB","userType":"Mentor"},{"userID":8,"userName":"david_anderson","userPass":"abc123","userEmail":"david@example.com","userFirst":"David","userLast":"Anderson","userCompany":"CompanyC","userType":"Mentee"},{"userID":9,"userName":"linda_wilson","userPass":"sunshine","userEmail":"linda@example.com","userFirst":"Linda","userLast":"Wilson","userCompany":"CompanyD","userType":"Mentor"},{"userID":10,"userName":"robert_jones","userPass":"iloveyou","userEmail":"robert@example.com","userFirst":"Robert","userLast":"Jones","userCompany":"CompanyE","userType":"Mentee"},{"userID":11,"userName":"karen_taylor","userPass":"password1","userEmail":"karen@example.com","userFirst":"Karen","userLast":"Taylor","userCompany":"CompanyA","userType":"Mentor"},{"userID":12,"userName":"michael_clark","userPass":"hello123","userEmail":"michael@example.com","userFirst":"Michael","userLast":"Clark","userCompany":"CompanyB","userType":"Mentee"},{"userID":13,"userName":"elizabeth_miller","userPass":"welcome","userEmail":"elizabeth@example.com","userFirst":"Elizabeth","userLast":"Miller","userCompany":"CompanyC","userType":"Mentor"},{"userID":14,"userName":"william_thomas","userPass":"changeme","userEmail":"william@example.com","userFirst":"William","userLast":"Thomas","userCompany":"CompanyD","userType":"Mentee"},{"userID":15,"userName":"jennifer_white","userPass":"password1234","userEmail":"jennifer@example.com","userFirst":"Jennifer","userLast":"White","userCompany":"CompanyE","userType":"Mentor"},{"userID":16,"userName":"richard_harris","userPass":"letmein123","userEmail":"richard@example.com","userFirst":"Richard","userLast":"Harris","userCompany":"CompanyA","userType":"Mentee"},{"userID":17,"userName":"patricia_lee","userPass":"test123","userEmail":"patricia@example.com","userFirst":"Patricia","userLast":"Lee","userCompany":"CompanyB","userType":"Mentor"},{"userID":18,"userName":"james_martin","userPass":"welcome123","userEmail":"james@example.com","userFirst":"James","userLast":"Martin","userCompany":"CompanyC","userType":"Mentee"},{"userID":19,"userName":"mary_robinson","userPass":"admin123","userEmail":"mary@example.com","userFirst":"Mary","userLast":"Robinson","userCompany":"CompanyD","userType":"Mentor"},{"userID":20,"userName":"thomas_hall","userPass":"password321","userEmail":"thomas@example.com","userFirst":"Thomas","userLast":"Hall","userCompany":"CompanyE","userType":"Mentee"},{"userID":27,"userName":"Test","userPass":"test123","userEmail":"Test@test","userFirst":"Test","userLast":"Test","userCompany":"Tester","userType":null},{"userID":28,"userName":"a","userPass":"a","userEmail":"a@asd","userFirst":"a","userLast":"a","userCompany":"a","userType":null},{"userID":30,"userName":"testy","userPass":"test","userEmail":"test2@asd","userFirst":"a","userLast":"a","userCompany":"a","userType":null},{"userID":31,"userName":"Test2","userPass":"Test2","userEmail":"Tester@gmail.com","userFirst":"Tester","userLast":"Tester","userCompany":"Testing","userType":null},{"userID":32,"userName":"Testt","userPass":"Testt","userEmail":"test@testt","userFirst":"testt","userLast":"testt","userCompany":"testt","userType":null},{"userID":33,"userName":"Ay","userPass":"Ay","userEmail":"Ay@gmail.com","userFirst":"Ay","userLast":"Be","userCompany":"Ce","userType":null},{"userID":34,"userName":"Hello","userPass":"Test","userEmail":"test@tesing.com","userFirst":"One","userLast":"Two","userCompany":"Three","userType":null},{"userID":35,"userName":"asd","userPass":"asd","userEmail":"asd@aswdasd","userFirst":"asd","userLast":"asd","userCompany":"asd","userType":null},{"userID":38,"userName":"abc","userPass":"abc","userEmail":"abc@abc","userFirst":"abc","userLast":"abc","userCompany":"abc","userType":"Mentor"},{"userID":39,"userName":"d","userPass":"d","userEmail":"d@gmail.com","userFirst":"n","userLast":"n","userCompany":"n","userType":"Mentor"},{"userID":41,"userName":"w","userPass":"w","userEmail":"d@gmail.com","userFirst":"w","userLast":"w","userCompany":"w","userType":"Mentor"}]
+      
+      
+      document.getElementById("mentortitle").innerHTML = "Welcome Back, " + rawTableUser.find((n) => {
+        return n.userID == sessionStorage.getItem("currentUserID");
+      }).userFirst + " " + rawTableUser.find((n) => {
+        return n.userID == sessionStorage.getItem("currentUserID");
+      }).userLast + "!";
+      
+      idFromMenteeName = (n) => {
+        const menteeName = n.split(" ");
+        console.log("menteeName: " + menteeName);
+        const mentee = rawTableUser.find((m) => {
+          console.log("m.userName: " + m.userName);
+          return m.userFirst == menteeName[0] && m.userLast == menteeName[1];
+        })
+        console.log("mentee: " + JSON.stringify(mentee));
+        
+        //get the menteeID from the userID
+        const userID = mentee.userID;
+        
+        const menteeID = rawMentee.find((m) => {
+          return m.userID == userID;
+        }).menteeID;
+        
+        return menteeID;
+      }
+      
+      console.log("Raw user table data:", JSON.stringify(rawTableUser));
+      console.log("Raw mentor table data:", JSON.stringify(rawTableMentor));
+      console.log("Raw json data:", JSON.stringify(jsonData));
+      
+      //add the name to the json data
+      jsonData.forEach((n) => {
+        rawMentee.forEach((m) => {
+          if(n.requesteeMenteeID == m.menteeID){
+            rawTableUser.forEach((o) => {
+              if(m.userID == o.userID){
+                n.Name = o.userFirst + " " + o.userLast;
+              }
+            })
+          }
+        })
+      })
+      
+      // Reference to the table body
+      var tableBody = document.querySelector("#data-table tbody");
 
-    // Reference to the table body
-    var tableBody = document.querySelector("#data-table tbody");
+      
+      
+      // Loop through the JSON data and populate the table
+      jsonData.forEach(function (row) {
+          var newRow = tableBody.insertRow(tableBody.rows.length);
+          var cell1 = newRow.insertCell(0);
+          var cell2 = newRow.insertCell(1);
 
-    // Loop through the JSON data and populate the table
-    jsonData.forEach(function (row) {
-        var newRow = tableBody.insertRow(tableBody.rows.length);
-        var cell1 = newRow.insertCell(0);
-        var cell2 = newRow.insertCell(1);
-
-        cell1.innerHTML = row.Name;
-        cell2.innerHTML = '<input type="checkbox">';
-    });
+          cell1.innerHTML = row.Name;
+          cell2.innerHTML = '<input type="checkbox">';
+      });
+      
+    })()
+    
+    function actionOnChecked(accept) {
+      //send to /acceptRequest?menteeID=menteeID&mentorID=mentorID
+      const c = sessionStorage.getItem("mentorID");
+      const table = document.getElementById("data-table");
+      const rows = table.rows;
+      const checkboxes = [];
+      
+      for(let i = 1; i < rows.length; i++){
+        const row = rows[i];
+        const checkbox = row.cells[1].children[0];
+        if(checkbox.checked){
+          checkboxes.push(row.cells[0].innerHTML);
+        }
+      }
+      
+      checkboxes.forEach((n) => {
+        console.log("n: " + n);
+        // const menteeID = n.split(" ")[0];
+        // console.log("menteeID: " + menteeID);
+        //n is the name of the mentee
+        //get the ID from the name
+        const menteeID = idFromMenteeName(n);
+        console.log("menteeID: " + menteeID, "name of mentee: " + n);
+        fetch(`/${accept ? "acceptRequest" : "rejectRequest"}?menteeID=${menteeID}&mentorID=${c}`)
+        .then((res) => {
+          console.log("res: " + res);
+          alert("success");
+          window.location.reload();
+        })
+      })
+      
+    }
+    
   </script>
     <script src="script.js">
     </script>
