@@ -224,7 +224,7 @@ var server = http.createServer(function (request, response) {
         return;
     }
 
-    else if (request.method === 'POST' && request.url === '/rating_form') {
+    if (request.method === 'POST' && request.url === '/rating') {
         let data = '';
 
         request.on('data', (chunk) => {
@@ -233,9 +233,9 @@ var server = http.createServer(function (request, response) {
 
         request.on('end', () => {
             const formData = JSON.parse(data);
-            const { userName, userRating} = formData;
+            const { userRating, userName} = formData;
 
-            const myQuery = 'UPDATE Mentor m JOIN User u ON m.userID = u.userID SET m.mentorRating = ?, m.ratingCount = 1 WHERE u.userName = ?';
+            const myQuery = 'UPDATE Mentor m JOIN User u ON u.userID=m.userID SET m.totalRating = m.totalRating + ?, m.ratingCount = m.ratingCount + 1 WHERE  u.userName = ?';
             con.query(myQuery, [userRating, userName], (err, result) => {
                 if (err) {
                     console.error('Error inserting data:', err);
@@ -243,13 +243,25 @@ var server = http.createServer(function (request, response) {
                     response.end(JSON.stringify({ success: false, message: 'An error occurred' }));
                 } else {
                     console.log('Data inserted successfully');
-                    response.writeHead(200, { 'Content-Type': 'application/json' });
-                    response.end(JSON.stringify({ success: true, message: 'Data inserted successfully' }));
+
+                    const myQuery2 = 'UPDATE Mentor m JOIN User u ON u.userID=m.userID SET m.mentorRating = (m.totalRating/m.ratingCount) WHERE  u.userName = ?';        con.query(myQuery2, [userName], (secondErr, secondResult) => {
+                        if (secondErr) {
+                            // Handle error for the second query
+                            console.error('Error inserting data for second query:', secondErr);
+                            response.writeHead(500, { 'Content-Type': 'application/json' });
+                            response.end(JSON.stringify({ success: false, message: 'An error occurred in the second query' }));
+                        } else {
+                            // Second query successful
+                            console.log('Data inserted successfully for second query');
+                            response.writeHead(200, { 'Content-Type': 'application/json' });
+                            response.end(JSON.stringify({ success: true, message: 'Data inserted successfully' }));
                 }
             });
-        });
-        return;
-    }
+        }});
+       
+    });
+    return;
+}
 
     if (request.method === 'POST' && request.url === '/submit_form') {
         let data = '';
