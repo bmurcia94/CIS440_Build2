@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const userName    = document.getElementById("userNameID").value;
         const userRating   = document.getElementById("ratingID").value;
- 
+        
         // Create a JSON object with the user input data
         const userData = {
             userName,
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     async function sendDataToServer(userData) {
-        fetch("/rating_form", {
+        fetch("/rating", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => {
             console.error("Error:", error);
-            alert("Your Rating has been added");
+            alert("Error");
             window.location.href = 'Mentee.html';
         });
         }
