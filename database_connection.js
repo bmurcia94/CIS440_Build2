@@ -65,12 +65,14 @@ var server = http.createServer(function (request, response) {
         return; // Prevent further processing
     }
 
-    else if (pathname === '/getMenteeList' && request.method === 'GET') {
+     else if (pathname === '/getMenteeList' && request.method === 'GET') {
         const queryObject = url.parse(request.url, true).query;
+        console.log(queryObject);
+        //const userName = sessionStorage.getItem("mentorID");
         const userName = queryObject.userName;
 
-        var myQuery = 'SELECT u.userFirst, u.userLast, u.userEmail FROM Mentee AS m JOIN User AS u ON m.userID = u.userID WHERE m.mentorID = 3';
-        con.query(myQuery, [userName], function (err, result, fields) {
+        var myQuery = 'SELECT u.userFirst, u.userLast, u.userEmail FROM Mentee AS m JOIN User AS u ON m.userID = u.userID WHERE m.mentorID = 5';
+        con.query(myQuery, function (err, result, fields) {
             if (err) {
                 console.error('Error fetching mentee data:', err);
                 response.writeHead(500, { 'Content-Type': 'application/json' });
