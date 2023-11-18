@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const accountForm = document.getElementById("ratingForm");
 
-    accountForm.addEventListener("submit", function (e) {
+    accountForm.addEventListener("submit", function (e) { //gets the form elements
         e.preventDefault(); // Prevent the default form submission
 
         const userName    = document.getElementById("userNameID").value;
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
       sendDataToServer(userData);
     });
 
-    async function sendDataToServer(userData) {
+    async function sendDataToServer(userData) { //selects the form data and sends it to rating endpoint which is used to insert data into database
         fetch("/rating", {
             method: "POST",
             headers: {
