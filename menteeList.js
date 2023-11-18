@@ -12,14 +12,14 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-async function fetchMenteesData() {
+async function fetchMenteesData() { //code that gets the mentee data
     return fetch('/getMenteeList')
         .then(response => response.json())
         .then(data => data)
         .catch(error => console.error('Error fetching mentee data:', error));
 }
 
-function displayMatchResults(mentee) {
+function displayMatchResults(mentee) { //code that displays the results in a table format
     const resultDisplay = document.getElementById("displayMentees");
     var menteelist = [];
 
