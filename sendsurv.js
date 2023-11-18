@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
       sendDataToServer(userData);
     });
 
-    async function sendDataToServer(userData) {
+    async function sendDataToServer(userData) { //sends data to submit form to send survey data
         fetch("/submit_form", {
             method: "POST",
             headers: {
