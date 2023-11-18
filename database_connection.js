@@ -65,7 +65,7 @@ var server = http.createServer(function (request, response) {
         return; // Prevent further processing
     }
 
-     else if (pathname === '/getMenteeList' && request.method === 'GET') {
+     else if (pathname === '/getMenteeList' && request.method === 'GET') { //code that displays a mentor's mentee (unable to get it to display based on logged in user)
         const queryObject = url.parse(request.url, true).query;
         console.log(queryObject);
         //const userName = sessionStorage.getItem("mentorID");
@@ -85,7 +85,7 @@ var server = http.createServer(function (request, response) {
         return;
     }
 
-    else if (pathname === '/addMentorToMentee' && request.method === 'POST') {
+    else if (pathname === '/addMentorToMentee' && request.method === 'POST') { //code that adds a mentor to the mentee
         let requestData = '';
         request.on('data', (chunk) => {
             requestData += chunk;
@@ -207,7 +207,7 @@ var server = http.createServer(function (request, response) {
     }
     
 
-    if (request.url.startsWith('/getMenteeData') && request.method === 'GET') {
+    if (request.url.startsWith('/getMenteeData') && request.method === 'GET') { //Code that selects mentee data based on specific criteria
         const queryObject = url.parse(request.url, true).query;
         const userName = queryObject.userName;
 
@@ -226,7 +226,7 @@ var server = http.createServer(function (request, response) {
         return;
     }
 
-    if (request.method === 'POST' && request.url === '/rating') {
+    if (request.method === 'POST' && request.url === '/rating') { //code used to insert the rating into the database based on user's input
         let data = '';
 
         request.on('data', (chunk) => {
@@ -265,7 +265,7 @@ var server = http.createServer(function (request, response) {
     return;
 }
 
-    if (request.method === 'POST' && request.url === '/submit_form') {
+    if (request.method === 'POST' && request.url === '/submit_form') { //code used to create account based on the input information on the form
         let data = '';
         
         request.on('data', (chunk) => {
@@ -292,7 +292,7 @@ var server = http.createServer(function (request, response) {
         return;
     }
     
-
+     //Code used to select data from each table
     var base = "http://" + request.headers.host;
     var completeurl = new URL(request.url, base);
     var table = completeurl.searchParams.get("tableName");
