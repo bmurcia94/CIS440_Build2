@@ -10,14 +10,14 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-function fetchMentorData() {
+function fetchMentorData() { //code that gets mentee data
     return fetch('/getMentorDetails')
         .then(response => response.json())
         .then(data => data)
         .catch(error => console.error('Error fetching mentor data:', error));
 }
 
-function displayMatchResults(mentors) {
+function displayMatchResults(mentors) { //code that displays mentee data in table format
     const resultDisplay = document.getElementById("showlist");
     resultDisplay.style.color = "black";
     resultDisplay.innerHTML = ''; // Clear the previous content
