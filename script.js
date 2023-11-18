@@ -1,7 +1,7 @@
 /* document.getElementById('btnLogin').addEventListener('click', function () {
     window.location.href = 'loginpage.html';
 }); */
-function fetchMenteeData(userName) {
+function fetchMenteeData(userName) { //code used to get mentee data
     return fetch(`/getMenteeData?userName=${encodeURIComponent(userName)}`)
         .then(response => response.json())
         .then(data => {
@@ -10,7 +10,7 @@ function fetchMenteeData(userName) {
         .catch(error => console.error('Error fetching mentee data:', error));
 }
 
-function userLogin() {
+function userLogin() { //code used for user to login based on entered values in the form
     console.log("User login function called");
     var userName = document.getElementById('username').value;
     var userPass = document.getElementById('password').value;
@@ -60,7 +60,7 @@ function userLogin() {
     });
 }
 
-function checkLoginState() {
+function checkLoginState() { //code used to check if the user is logged in
     var isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
     if (isLoggedIn) {
@@ -71,13 +71,13 @@ function checkLoginState() {
     }
 }
 
-function userLogout() {
+function userLogout() { //code used to logout a user 
     sessionStorage.removeItem("isLoggedIn");
     sessionStorage.removeItem("menteeData");
     window.location.href = 'index.html'; 
 }
 
-function checkLogoutState() {
+function checkLogoutState() { //checks if a user has logged out
     var isLoggedIn = sessionStorage.getItem("isLoggedIn");
 
     if (!isLoggedIn) {
