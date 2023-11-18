@@ -16,14 +16,14 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-async function fetchMentorData() {
+async function fetchMentorData() { //code that gets mentor data
     return fetch('/getMentorDetails')
         .then(response => response.json())
         .then(data => data)
         .catch(error => console.error('Error fetching mentor data:', error));
 }
 
-function findRandomMentorForMentee(menteeColorType, mentors) {
+function findRandomMentorForMentee(menteeColorType, mentors) { //code that will randomly assign a mentee with a mentor
     const matchingMentors = mentors.filter(mentor => mentor.colorType === menteeColorType);
 
     if (matchingMentors.length === 0) {
@@ -35,7 +35,7 @@ function findRandomMentorForMentee(menteeColorType, mentors) {
 }
 
 
-function displayMatchResult(match) {
+function displayMatchResult(match) { //code that displays the results of random match
     const resultDisplay = document.getElementById("mentorMatchResult"); 
     
     resultDisplay.style.color = "black";
